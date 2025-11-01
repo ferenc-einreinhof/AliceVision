@@ -265,6 +265,8 @@ if(AV_BUILD_ASSIMP)
             -DASSIMP_WARNINGS_AS_ERRORS=OFF
             -DASSIMP_BUILD_TESTS=OFF
             <SOURCE_DIR>
+        PATCH_COMMAND ${CMAKE_COMMAND} -E copy
+            "${CMAKE_CURRENT_SOURCE_DIR}/patches/assimp/contrib/draco/src/draco/io/file_utils.h" ${CMAKE_CURRENT_BINARY_DIR}/assimp/contrib/draco/src/draco/io/file_utils.h
         BUILD_COMMAND $(MAKE) -j${AV_BUILD_DEPENDENCIES_PARALLEL}
         DEPENDS ${ZLIB_TARGET}
     )
@@ -688,6 +690,9 @@ if(AV_BUILD_FFMPEG)
             --disable-gpl
             --enable-nonfree
             --enable-libvpx
+            --disable-doc
+        PATCH_COMMAND ${CMAKE_COMMAND} -E copy
+            "${CMAKE_CURRENT_SOURCE_DIR}/patches/ffmpeg/libavcodec/x86/mathops.h" ${CMAKE_CURRENT_BINARY_DIR}/ffmpeg/libavcodec/x86/mathops.h
         BUILD_COMMAND $(MAKE) -j${AV_BUILD_DEPENDENCIES_PARALLEL}
         DEPENDS ${VPX_TARGET}
     )
@@ -947,6 +952,8 @@ if(AV_BUILD_POPSIFT)
             -DPopSift_BUILD_EXAMPLES:BOOL=OFF
             -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
             <SOURCE_DIR>
+        PATCH_COMMAND ${CMAKE_COMMAND} -E copy
+            "${CMAKE_CURRENT_SOURCE_DIR}/patches/popsift/src/popsift/s_filtergrid.cu" ${CMAKE_CURRENT_BINARY_DIR}/popsift/src/popsift/s_filtergrid.cu
         BUILD_COMMAND $(MAKE) -j${AV_BUILD_DEPENDENCIES_PARALLEL}
         DEPENDS ${BOOST_TARGET} ${CUDA_TARGET}
     )
@@ -1307,6 +1314,8 @@ if(AV_BUILD_CERES)
             -DSUITESPARSE:BOOL=ON
             -DLAPACK:BOOL=ON
             ${EIGEN_CMAKE_FLAGS}
+            -DCMAKE_CUDA_ARCHITECTURES=native
+            -DCMAKE_CUDA_COMPILER=${CMAKE_DETECTED_CUDA_COMPILER}
             -DMINIGLOG=ON
             -DBUILD_EXAMPLES:BOOL=OFF
             -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>

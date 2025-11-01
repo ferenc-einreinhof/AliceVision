@@ -28,7 +28,7 @@ Thumbs.db # Windows
 *.db
 
 # folder receiving the compilation products
-build*
+build/**/*
 install
 lib
 bin
@@ -81,3 +81,7 @@ Production
 /export/
 /.cache/
 /compile_commands.json
+
+CMakeFiles
+src/aliceVision-stamp
+tmp
